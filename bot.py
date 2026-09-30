@@ -1,12 +1,11 @@
+import os
 import asyncio
 from telegram.ext import Application, CommandHandler
 
-# Função para o comando /start
 async def start(update, context):
     user_id = update.message.from_user.id
     first_name = update.message.from_user.first_name
     
-    # Gera um link individual personalizado para o utilizador partilhar
     link_personalizado = f"https://caixa-de-segredos.onrender.com/enviar/{user_id}"
     
     mensagem = (
@@ -15,15 +14,13 @@ async def start(update, context):
         f"Copia o teu link exclusivo e envia para os teus amigos ou coloca no grupo:\n\n"
         f"{link_personalizado}\n\n"
         f"Todas as mensagens que te enviarem vão chegar aqui!"
-    
+    )
     
     await update.message.reply_text(mensagem, parse_mode="Markdown")
-async def main():
 
-    # Substitua pelo seu token real do BotFather
-    application = Application.builder().token("8914177691:AAFMZniiAoqZg0cXBuM8VPXPOMgwgOAKS10").build()
+async def main():
+    application = Application.builder().token("8914177691:AAFMZniiaOqZg0CxBum8VPXPOMgwgOAKS10").build()
     
-    # Adiciona o gestor do comando /start
     application.add_handler(CommandHandler("start", start))
     
     await application.initialize()
