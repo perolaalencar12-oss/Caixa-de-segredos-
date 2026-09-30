@@ -14,5 +14,5 @@ async def main():
     stop_event = asyncio.Event()
     await stop_event.wait()
 
-if __name__ == "__main__":
+ if __name__ == "__main__".
     asyncio.run(main())
