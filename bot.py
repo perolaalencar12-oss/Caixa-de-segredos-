@@ -1,6 +1,22 @@
 import os
 import asyncio
+import threading
+from flask import Flask
 from telegram.ext import Application, CommandHandler
+
+app_web = Flask(__name__)
+
+@app_web.route('/')
+def home():
+    return "Caixa de Segredos online!"
+
+@app_web.route('/enviar/<user_id>')
+def enviar_pagina(user_id):
+    return f"Página de envio de segredos anónimos para o utilizador: {user_id}"
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app_web.run(host="0.0.0.0", port=port)
 
 async def start(update, context):
     user_id = update.message.from_user.id
@@ -19,8 +35,7 @@ async def start(update, context):
     await update.message.reply_text(mensagem, parse_mode="Markdown")
 
 async def main():
-    application = Application.builder().token("8914177691:AAFMZniiaOqZg0CxBum8VPXPOMgwgOAKS10").build()
-    
+    application = Application.builder().token("8914177691:AAFMZniiAoqZg0cXBuM8VPXPOMgwgOAKS10").build()
     application.add_handler(CommandHandler("start", start))
     
     await application.initialize()
@@ -31,4 +46,5 @@ async def main():
     await stop_event.wait()
 
 if __name__ == "__main__":
+    threading.Thread(target=run_web, daemon=True).start()
     asyncio.run(main())
