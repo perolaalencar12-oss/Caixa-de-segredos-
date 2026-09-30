@@ -19,7 +19,7 @@ async def start(update, context):
     
     await update.message.reply_text(mensagem, parse_mode="Markdown")
 
-async def main():
+
     # Substitua pelo seu token real do BotFather
     application = Application.builder().token("8914177691:AAFMZniiAoqZg0cXBuM8VPXPOMgwgOAKS10").build()
     
